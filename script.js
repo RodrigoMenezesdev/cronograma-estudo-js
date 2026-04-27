@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+Document.addEventListener('DOMContentLoaded', () => {
     // --- Variáveis Globais ---
     const dropzones = document.querySelectorAll('.dropzone');
     const materiasContainer = document.getElementById('materias-container');
@@ -475,5 +475,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicialização da Aplicação
     loadCustomMaterias();
-    loadSchedule(); 
+    loadSchedule();
+    atualizarData(); // Chamada da função de data na inicialização
 });
+
+// --- FUNÇÕES AUXILIARES (FORA DO DOMCONTENTLOADED PARA ACESSO DO BOTÃO HTML) ---
+
+function atualizarData() {
+    const dataElemento = document.getElementById('current-date');
+    if (dataElemento) {
+        const hoje = new Date();
+        const opcoes = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        let dataFormatada = hoje.toLocaleDateString('pt-BR', opcoes);
+        dataElemento.textContent = dataFormatada.charAt(0).toUpperCase() + dataFormatada.slice(1);
+    }
+}
+
+function copiarPix() {
+    const pixInput = document.getElementById('pix-input');
+    if (pixInput) {
+        pixInput.select();
+        pixInput.setSelectionRange(0, 99999); // Suporte para mobile
+        navigator.clipboard.writeText(pixInput.value);
+        alert("Código PIX copiado! Muito obrigado pelo apoio. 🚀");
+    }
+    }
+        
